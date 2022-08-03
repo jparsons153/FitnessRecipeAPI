@@ -1,0 +1,10 @@
+package com.recipeAPI.recipe.repos;
+
+import com.recipeAPI.recipe.models.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.ArrayList;
+
+public interface RecipeRepo extends JpaRepository<Recipe, Long> {
+    ArrayList<Recipe> findByNameContaining(String name);
+}
