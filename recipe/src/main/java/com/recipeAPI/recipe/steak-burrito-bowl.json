@@ -1,0 +1,53 @@
+{
+  "name":"Steak burrito bowl",
+  "minutesToMake":10,
+  "difficultyRating":3,
+  "ingredients":[
+    {"name":"fillet steak",
+      "amount":"250g"
+    },
+    {"name":"fajita seasoning",
+      "amount":"1 sachet"
+    },
+    {"name":"olive oil",
+    "amount":"2 tbsp"
+    },
+    {"name":"totilla shells",
+    "amount":"250g"
+    },
+    {"name":"roasted red peppers sliced",
+      "amount":"2"
+    },
+    {"name":"lemon",
+      "amount":"1"
+    },
+    {"name":"parsley",
+      "amount":"10g"
+    },
+    {"name":"natural yogurt",
+      "amount":"25g"
+    }
+  ],
+  "steps":[
+    {
+      "stepNumber":1,
+      "description":"Coat the steak with half of the fajita seasoning and 1 tbsp of the olive oil."
+    },
+    {
+      "stepNumber":2,
+      "description": "Heat,a frying pan over a high heat and add the steak,cook for 2mins on each side for medium rare, remove from the pan and set aside."
+    },
+    {
+      "stepNumber":3,
+      "description":"Turn down the heat to medium and add the remaining oil to the pan. Tip in the rest of the fajita seasoning, the rice and red peppers."
+    },
+    {
+      "stepNumber":4,
+      "description":"Stir well so everything is coated and cook for 2 mins, until hot through. Add a splash of water if it starts to stick. Add the lemon juice, stir through half the parsley and season."
+    },
+    {
+      "stepNumber":5,
+      "description":"Cut the steak into strips. Tip the rice into bowls and top each with the steak and a dollop of yogurt. Scatter with parsley and serve with a lemon wedge."
+    }
+  ]
+}
