@@ -1,6 +1,7 @@
 package com.recipeAPI.recipe.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.recipeAPI.recipe.services.ReviewService;
 import lombok.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -30,6 +31,9 @@ public class Recipe {
     @Column(nullable = false)
     private Integer difficultyRating;
 
+    //@Column(nullable = false)
+    private Integer averageRating;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipeId", nullable = false, foreignKey = @ForeignKey)
     private Collection<Ingredient> ingredients = new ArrayList<>();
@@ -45,6 +49,14 @@ public class Recipe {
     @Transient
     @JsonIgnore
     private URI locationURI;
+
+    //  take in review ratings (arraylist) for recipe Id
+    // compute average rating
+    // return int averageRating
+
+    public void calcAvgRating(ArrayList<Review> reviews){
+        
+    }
 
     public void setDifficultyRating(int difficultyRating) {
         if (difficultyRating < 0 || difficultyRating > 10) {
