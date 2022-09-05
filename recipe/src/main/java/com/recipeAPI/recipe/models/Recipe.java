@@ -10,6 +10,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.IntSummaryStatistics;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 @Entity
 @Getter
@@ -32,7 +36,7 @@ public class Recipe {
     private Integer difficultyRating;
 
     //@Column(nullable = false)
-    private Integer averageRating;
+    private Double averageRating;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipeId", nullable = false, foreignKey = @ForeignKey)
@@ -50,13 +54,19 @@ public class Recipe {
     @JsonIgnore
     private URI locationURI;
 
-    //  take in review ratings (arraylist) for recipe Id
-    // compute average rating
-    // return int averageRating
+    //  take in review ratings (arraylist) for specific recipe Id
+    //  for each review get rating
+    //  compute average rating (sum & divide by no. ratings)
+    //  set average = averageRating
 
-    public void calcAvgRating(ArrayList<Review> reviews){
-        
-    }
+//    public static void calcAvgRating(Collection<Review> reviews){
+//        ArrayList<Review> reviewArrayList = reviews.stream().collect(toCollection(ArrayList::new));
+//        int sum;
+//        for (review: reviewArrayList) {
+//
+//        }
+
+//    }
 
     public void setDifficultyRating(int difficultyRating) {
         if (difficultyRating < 0 || difficultyRating > 10) {
