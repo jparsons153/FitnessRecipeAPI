@@ -2,7 +2,6 @@ package com.recipeAPI.recipe.controllers;
 
 import com.recipeAPI.recipe.exceptions.NoSuchRecipeException;
 import com.recipeAPI.recipe.models.Recipe;
-import com.recipeAPI.recipe.services.LocatorService;
 import com.recipeAPI.recipe.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
