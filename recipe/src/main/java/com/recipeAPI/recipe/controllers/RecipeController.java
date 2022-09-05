@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@RestController
-//@RequestMapping("/recipes")
+//@RestController
+@RequestMapping("/recipes")
 public class RecipeController {
     @Autowired
     RecipeService recipeService;
