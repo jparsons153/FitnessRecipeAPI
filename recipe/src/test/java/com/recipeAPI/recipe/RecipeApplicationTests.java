@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -46,6 +47,21 @@ class RecipeApplicationTests {
 				.andExpect(jsonPath("reviews", hasSize(1)))
 				.andExpect(jsonPath("ingredients", hasSize(1)))
 				.andExpect(jsonPath("steps", hasSize(2)));
+	}
+
+	@Test
+	public void testGetRecipeByIdFailureBehavior() throws Exception {
+		final long recipeId = 5000;
+
+		//set up guaranteed to fail in testing environment request
+		mockMvc.perform(get("/recipes/" + recipeId))
+
+				//print response
+				.andDo(print())
+				//expect status 404 NOT FOUND
+				.andExpect(status().isNotFound())
+				//confirm that HTTP body contains correct error message
+				.andExpect(content().string(containsString("No recipe with ID " + recipeId + " could be found.")));
 	}
 
 }
