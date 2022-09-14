@@ -60,6 +60,18 @@ public class RecipeService {
     public ArrayList<Recipe> getRecipesByNameAndRating(String name, double minRating) throws NoSuchRecipeException {
         ArrayList<Recipe> matchingRecipes = recipeRepo.findByNameContainingAndAverageRatingGreaterThan(name, minRating);
         if (matchingRecipes.isEmpty()) {
+            throw new NoSuchRecipeException("No recipes could be found with that name and min. rating.");
+        }
+
+        for (Recipe r : matchingRecipes) {
+            r.generateLocationURI();
+        }
+        return matchingRecipes;
+    }
+
+    public ArrayList<Recipe> getRecipesByRating(double rating) throws NoSuchRecipeException {
+        ArrayList<Recipe> matchingRecipes = recipeRepo.findByAverageRatingIs(rating);
+        if (matchingRecipes.isEmpty()) {
             throw new NoSuchRecipeException("No recipes could be found with that name.");
         }
 

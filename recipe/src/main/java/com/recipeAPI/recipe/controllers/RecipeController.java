@@ -72,6 +72,15 @@ public class RecipeController {
     }
 
     // get recipes based on rating
+    @GetMapping("/search/{rating}")
+    public ResponseEntity<?> getRecipesByRating(@PathVariable("rating") double rating){
+        try {
+            ArrayList<Recipe> matchingRecipes = recipeService.getRecipesByRating(rating);
+            return ResponseEntity.ok(matchingRecipes);
+        } catch (NoSuchRecipeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
     // search recipes by username
 
