@@ -35,8 +35,13 @@ public class Recipe {
     @Column(nullable = false)
     private Integer difficultyRating;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private Double averageRating;
+
+    @ManyToOne(optional = false)
+    @JoinColumn
+    @JsonIgnore
+    private CustomUserDetails user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipeId", nullable = false, foreignKey = @ForeignKey)
@@ -53,20 +58,6 @@ public class Recipe {
     @Transient
     @JsonIgnore
     private URI locationURI;
-
-    //  take in review ratings (arraylist) for specific recipe Id
-    //  for each review get rating
-    //  compute average rating (sum & divide by no. ratings)
-    //  set average = averageRating
-
-//    public static void calcAvgRating(Collection<Review> reviews){
-//        ArrayList<Review> reviewArrayList = reviews.stream().collect(toCollection(ArrayList::new));
-//        int sum;
-//        for (review: reviewArrayList) {
-//
-//        }
-
-//    }
 
     public void setDifficultyRating(int difficultyRating) {
         if (difficultyRating < 0 || difficultyRating > 10) {
@@ -93,5 +84,9 @@ public class Recipe {
         } catch (URISyntaxException e) {
             //Exception should stop here.
         }
+    }
+
+    public String getAuthor() {
+        return user.getUsername();
     }
 }

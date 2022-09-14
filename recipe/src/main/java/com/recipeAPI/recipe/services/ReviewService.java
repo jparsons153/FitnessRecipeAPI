@@ -2,6 +2,7 @@ package com.recipeAPI.recipe.services;
 
 import com.recipeAPI.recipe.exceptions.NoSuchRecipeException;
 import com.recipeAPI.recipe.exceptions.NoSuchReviewException;
+import com.recipeAPI.recipe.models.CustomUserDetails;
 import com.recipeAPI.recipe.models.Recipe;
 import com.recipeAPI.recipe.models.Review;
 import com.recipeAPI.recipe.repos.ReviewRepo;
@@ -39,7 +40,7 @@ public class ReviewService {
         return reviews;
     }
 
-    public ArrayList<Review> getReviewByUsername(String username) throws NoSuchReviewException {
+    public ArrayList<Review> getReviewByUsername(CustomUserDetails username) throws NoSuchReviewException {
         ArrayList<Review> reviews = reviewRepo.findByUsername(username);
 
         if (reviews.isEmpty()) {
@@ -76,4 +77,18 @@ public class ReviewService {
         reviewRepo.save(reviewToUpdate);
         return reviewToUpdate;
     }
+
+    //  take in review ratings (arraylist) for specific recipe Id
+    //  for each review get rating
+    //  compute average rating (sum & divide by no. ratings)
+    //  set average = averageRating
+
+//    public static void calcAvgRating(Collection<Review> reviews){
+//        ArrayList<Review> reviewArrayList = reviews.stream().collect(toCollection(ArrayList::new));
+//        int sum;
+//        for (review: reviewArrayList) {
+//
+//        }
+
+//    }
 }

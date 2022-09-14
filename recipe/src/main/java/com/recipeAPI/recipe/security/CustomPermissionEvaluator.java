@@ -1,4 +1,4 @@
-package com.recipeAPI.recipe;
+package com.recipeAPI.recipe.security;
 
 import com.recipeAPI.recipe.models.CustomUserDetails;
 import com.recipeAPI.recipe.models.Recipe;

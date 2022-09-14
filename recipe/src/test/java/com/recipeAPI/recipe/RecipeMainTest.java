@@ -28,7 +28,7 @@ public class RecipeMainTest implements CommandLineRunner {
             Step step1 = Step.builder().description("put flour in bowl").stepNumber(1).build();
             Step step2 = Step.builder().description("eat it?").stepNumber(2).build();
 
-            Review review = Review.builder().description("tasted pretty bad").rating(2).username("idfk").build();
+      //      Review review = Review.builder().description("tasted pretty bad").rating(2).username("idfk").build();
 
             Recipe recipe1 = Recipe.builder()
                     .name("test recipe")
@@ -36,7 +36,7 @@ public class RecipeMainTest implements CommandLineRunner {
                     .minutesToMake(2)
                     .ingredients(Set.of(ingredient))
                     .steps(Set.of(step1, step2))
-                    .reviews(Set.of(review))
+         //           .reviews(Set.of(review))
                     .build();
 
             recipeRepo.save(recipe1);
@@ -70,9 +70,9 @@ public class RecipeMainTest implements CommandLineRunner {
                             Ingredient.builder().name("chocolate").amount("1 bar").build()))
                     .steps(Set.of(
                             Step.builder().stepNumber(1).description("eat both items together").build()))
-                    .reviews(Set.of(
-                            Review.builder().username("ben").rating(10).description("this stuff is so good").build()
-                    ))
+//                    .reviews(Set.of(
+//                            Review.builder().username("ben").rating(10).description("this stuff is so good").build()
+//                    ))
                     .build();
 
             recipeRepo.save(recipe4);

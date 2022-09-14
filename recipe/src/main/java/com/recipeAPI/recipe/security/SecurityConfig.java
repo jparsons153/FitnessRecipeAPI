@@ -1,5 +1,6 @@
-package com.recipeAPI.recipe;
+package com.recipeAPI.recipe.security;
 
+import com.recipeAPI.recipe.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

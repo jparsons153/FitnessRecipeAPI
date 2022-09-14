@@ -144,7 +144,7 @@ class RecipeApplicationTests {
 		Step step1 = Step.builder().description("heat pan").stepNumber(1).build();
 		Step step2 = Step.builder().description("add sugar").stepNumber(2).build();
 
-		Review review = Review.builder().description("was just caramel").rating(3).username("idk").build();
+	//	Review review = Review.builder().description("was just caramel").rating(3).username("idk").build();
 
 		Recipe recipe = Recipe.builder()
 				.name("caramel in a pan")
@@ -152,7 +152,7 @@ class RecipeApplicationTests {
 				.minutesToMake(2)
 				.ingredients(Set.of(ingredient))
 				.steps(Set.of(step1, step2))
-				.reviews(Set.of(review))
+		//		.reviews(Set.of(review))
 				.build();
 
 		MockHttpServletResponse response =

@@ -2,9 +2,7 @@ package com.recipeAPI.recipe.models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,8 +17,10 @@ public class Review {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "username_id")
     @NotNull
-    private String username;
+    private CustomUserDetails username;
 
     @NotNull
     private int rating;
@@ -32,5 +32,9 @@ public class Review {
             throw new IllegalStateException("Rating must be between 0 and 10.");
         }
         this.rating = rating;
+    }
+
+    public String getAuthor() {
+        return username.getUsername();
     }
 }

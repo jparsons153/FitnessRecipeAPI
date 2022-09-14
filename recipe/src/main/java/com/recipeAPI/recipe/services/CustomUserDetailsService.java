@@ -1,5 +1,8 @@
 package com.recipeAPI.recipe.services;
 
+import com.recipeAPI.recipe.models.CustomUserDetails;
+import com.recipeAPI.recipe.models.Role;
+import com.recipeAPI.recipe.repos.UserRepo;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {

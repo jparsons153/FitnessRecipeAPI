@@ -2,11 +2,15 @@ package com.recipeAPI.recipe.controllers;
 
 import com.recipeAPI.recipe.exceptions.NoSuchRecipeException;
 import com.recipeAPI.recipe.exceptions.NoSuchReviewException;
+import com.recipeAPI.recipe.models.CustomUserDetails;
 import com.recipeAPI.recipe.models.Recipe;
 import com.recipeAPI.recipe.models.Review;
 import com.recipeAPI.recipe.services.ReviewService;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +42,7 @@ public class ReviewController {
     }
 
     @GetMapping("/user/{username}")
-    public ResponseEntity<?> getReviewByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<?> getReviewByUsername(@PathVariable("username") CustomUserDetails username) {
         try {
             ArrayList<Review> reviews = reviewService.getReviewByUsername(username);
             return ResponseEntity.ok(reviews);
@@ -48,17 +52,20 @@ public class ReviewController {
     }
 
     @PostMapping("/{recipeId}")
-    public ResponseEntity<?> postNewReview(@RequestBody Review review, @PathVariable("recipeId") Long recipeId) {
+    public ResponseEntity<?> postNewReview(@RequestBody Review review,
+                                           @PathVariable("recipeId") Long recipeId, Authentication authentication) {
         try {
+            review.setUsername((CustomUserDetails) authentication.getPrincipal());
             Recipe insertedRecipe = reviewService.postNewReview(review, recipeId);
             return ResponseEntity.created(insertedRecipe.getLocationURI()).body(insertedRecipe);
-        } catch (NoSuchRecipeException e) {
+        } catch (NoSuchRecipeException | IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReviewById(@PathVariable("id") Long id) {
+    @PreAuthorize("hasPermission(#id, 'Review', 'delete')")
+    public ResponseEntity<?> deleteReviewById(@PathVariable("id")Long id) {
         try {
             Review review = reviewService.deleteReviewById(id);
             return ResponseEntity.ok(review);
@@ -68,6 +75,7 @@ public class ReviewController {
     }
 
     @PatchMapping
+    @PreAuthorize("hasPermission(#reviewToUpdate.id, 'Review', 'edit')")
     public ResponseEntity<?> updateReviewById(@RequestBody Review reviewToUpdate) {
         try {
             Review review = reviewService.updateReviewById(reviewToUpdate);
