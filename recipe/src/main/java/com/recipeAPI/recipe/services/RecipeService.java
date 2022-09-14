@@ -57,6 +57,18 @@ public class RecipeService {
         return recipes;
     }
 
+    public ArrayList<Recipe> getRecipesByNameAndRating(String name, double minRating) throws NoSuchRecipeException {
+        ArrayList<Recipe> matchingRecipes = recipeRepo.findByNameContainingAndAverageRatingGreaterThan(name, minRating);
+        if (matchingRecipes.isEmpty()) {
+            throw new NoSuchRecipeException("No recipes could be found with that name.");
+        }
+
+        for (Recipe r : matchingRecipes) {
+            r.generateLocationURI();
+        }
+        return matchingRecipes;
+    }
+
     @Transactional
     public Recipe deleteRecipeById(Long id) throws NoSuchRecipeException {
         try {

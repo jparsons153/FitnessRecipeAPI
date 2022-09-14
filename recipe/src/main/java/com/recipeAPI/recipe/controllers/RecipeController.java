@@ -60,6 +60,21 @@ public class RecipeController {
         }
     }
 
+    // get (search) recipe by name and min. average rating
+    @GetMapping("/search/{name}/{minRating}")
+    public ResponseEntity<?> getRecipesByNameAndMinRating(@PathVariable("name") String name, @PathVariable("minRating") double minRating){
+        try {
+            ArrayList<Recipe> matchingRecipes = recipeService.getRecipesByNameAndRating(name,minRating);
+            return ResponseEntity.ok(matchingRecipes);
+        } catch (NoSuchRecipeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // get recipes based on rating
+
+    // search recipes by username
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasPermission(#id, 'Recipe', 'delete')")
     //make sure that a user is either an admin or the owner of the recipe before they are allowed to delete
