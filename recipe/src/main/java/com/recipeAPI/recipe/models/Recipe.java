@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.IntSummaryStatistics;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
@@ -36,7 +37,7 @@ public class Recipe {
     private Integer difficultyRating;
 
     @Column(nullable = false)
-    private Double averageRating;
+    private OptionalDouble averageRating;
 
     @ManyToOne(optional = false)
     @JoinColumn

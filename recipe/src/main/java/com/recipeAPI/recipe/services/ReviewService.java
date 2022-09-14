@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.IntStream;
 
 @Service
 public class ReviewService {
@@ -50,8 +52,9 @@ public class ReviewService {
         return reviews;
     }
 
-    public Recipe postNewReview(Review review, Long recipeId) throws NoSuchRecipeException {
+    public Recipe postNewReview(Review review, Long recipeId) throws NoSuchRecipeException, NoSuchReviewException {
         Recipe recipe = recipeService.getRecipeById(recipeId);
+        recipe.setAverageRating(calcAvgRating(recipeId));
         recipe.getReviews().add(review);
         recipeService.updateRecipe(recipe, false);
         return recipe;
@@ -78,17 +81,18 @@ public class ReviewService {
         return reviewToUpdate;
     }
 
-    //  take in review ratings (arraylist) for specific recipe Id
-    //  for each review get rating
-    //  compute average rating (sum & divide by no. ratings)
-    //  set average = averageRating
+    public OptionalDouble calcAvgRating(Long recipeId) throws NoSuchReviewException, NoSuchRecipeException {
+        ArrayList<Review> selectedRecipe = getReviewByRecipeId(recipeId);
+        ArrayList<Integer> ratingsForRecipe = new ArrayList<>();
 
-//    public static void calcAvgRating(Collection<Review> reviews){
-//        ArrayList<Review> reviewArrayList = reviews.stream().collect(toCollection(ArrayList::new));
-//        int sum;
-//        for (review: reviewArrayList) {
-//
-//        }
+        for (Review recipe:selectedRecipe) {
+            int rating = recipe.getRating();
+            ratingsForRecipe.add(rating);
+        }
 
-//    }
+        IntStream ratingsStream = (IntStream) ratingsForRecipe.stream();
+        OptionalDouble averageRating = ratingsStream.average();
+
+        return averageRating;
+    }
 }
