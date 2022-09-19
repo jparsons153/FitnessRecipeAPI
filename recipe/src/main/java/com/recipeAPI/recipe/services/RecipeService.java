@@ -81,6 +81,17 @@ public class RecipeService {
         return matchingRecipes;
     }
 
+    public ArrayList<Recipe> getRecipesByUser(String user) throws NoSuchRecipeException {
+        ArrayList<Recipe> matchingRecipes = recipeRepo.findByUser(user);
+        if (matchingRecipes.isEmpty()) {
+            throw new NoSuchRecipeException("No recipes could be found with that name.");
+        }
+        for (Recipe r : matchingRecipes) {
+            r.generateLocationURI();
+        }
+        return matchingRecipes;
+    }
+
     @Transactional
     public Recipe deleteRecipeById(Long id) throws NoSuchRecipeException {
         try {

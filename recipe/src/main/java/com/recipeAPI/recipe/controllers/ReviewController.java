@@ -31,7 +31,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/recipe/{recipeId}")
+    @GetMapping("/review/{recipeId}")
     public ResponseEntity<?> getReviewByRecipeId(@PathVariable("recipeId") Long recipeId) {
         try {
             ArrayList<Review> reviews = reviewService.getReviewByRecipeId(recipeId);
@@ -41,7 +41,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/review/{username}")
     public ResponseEntity<?> getReviewByUsername(@PathVariable("username") CustomUserDetails username) {
         try {
             ArrayList<Review> reviews = reviewService.getReviewByUsername(username);

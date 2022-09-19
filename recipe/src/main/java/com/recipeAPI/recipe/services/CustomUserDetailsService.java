@@ -1,5 +1,6 @@
 package com.recipeAPI.recipe.services;
 
+import com.recipeAPI.recipe.exceptions.NoSuchUserException;
 import com.recipeAPI.recipe.models.CustomUserDetails;
 import com.recipeAPI.recipe.models.Role;
 import com.recipeAPI.recipe.repos.UserRepo;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Component
@@ -75,5 +77,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (password.length() < 6) {
             throw new IllegalStateException("Password is too short. Must be longer than 6 characters");
         }
+    }
+
+    public CustomUserDetails getUsersByUserName(String username) throws NoSuchUserException {
+        CustomUserDetails matchingUser = userRepo.findByUsername(username);
+        if(matchingUser==null){
+            throw new NoSuchUserException("No user could be found with that username");
+        }
+
+        return matchingUser;
     }
 }

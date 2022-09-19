@@ -82,7 +82,16 @@ public class RecipeController {
         }
     }
 
-    // search recipes by username
+    // get recipes based on username
+    @GetMapping("/search/{username}")
+    public ResponseEntity<?> getRecipesByUsername(@PathVariable("user") String user){
+        try {
+            ArrayList<Recipe> matchingRecipes = recipeService.getRecipesByUser(user);
+            return ResponseEntity.ok(matchingRecipes);
+        } catch (NoSuchRecipeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasPermission(#id, 'Recipe', 'delete')")
