@@ -37,7 +37,7 @@ public class Recipe {
     private Integer difficultyRating;
 
     @Column(nullable = false)
-    private OptionalDouble averageRating;
+    private Double averageRating;
 
     @ManyToOne(optional = false)
     @JoinColumn

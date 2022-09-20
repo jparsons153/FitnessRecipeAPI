@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class ReviewService {
@@ -81,7 +81,7 @@ public class ReviewService {
         return reviewToUpdate;
     }
 
-    public OptionalDouble calcAvgRating(Long recipeId) throws NoSuchReviewException, NoSuchRecipeException {
+    public Double calcAvgRating(Long recipeId) throws NoSuchReviewException, NoSuchRecipeException {
         ArrayList<Review> selectedRecipe = getReviewByRecipeId(recipeId);
         ArrayList<Integer> ratingsForRecipe = new ArrayList<>();
 
@@ -90,8 +90,8 @@ public class ReviewService {
             ratingsForRecipe.add(rating);
         }
 
-        IntStream ratingsStream = (IntStream) ratingsForRecipe.stream();
-        OptionalDouble averageRating = ratingsStream.average();
+        Stream<Integer> ratingsStream = ratingsForRecipe.stream();
+        Double averageRating = ratingsStream.mapToDouble(num -> (double)num).average().orElse(Double.NaN);
 
         return averageRating;
     }

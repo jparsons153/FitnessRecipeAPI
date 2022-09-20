@@ -46,17 +46,17 @@ public class CustomUserDetails implements UserDetails {
     @Column(nullable = false)
     private boolean isEnabled = true;
 
-    public CustomUserDetails(String username, String password, Collection<Role> authorities, UserMeta userMeta) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-        this.userMeta = userMeta;
-    }
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
     private Collection<Role> authorities = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     private UserMeta userMeta;
+
+    public CustomUserDetails(String username, String password, Collection<Role> authorities, UserMeta userMeta) {
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+        this.userMeta = userMeta;
+    }
 }
